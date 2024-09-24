@@ -33,7 +33,7 @@ jobs:
       - name: Run tests with coverage with html report
         run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --html
       - name: Run tests with coverage with xml report
-        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --cobertura
+        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --cobertura --output-path "cobertura.xml"
       - uses: actions/upload-artifact@v4
         with:
           name: llvm-cov
@@ -41,7 +41,7 @@ jobs:
       - name: Code Coverage Summary Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: rust-actix/cobertura.xml
+          filename: cobertura.xml
           badge: true
           fail_below_min: true
           format: markdown
