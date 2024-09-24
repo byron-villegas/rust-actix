@@ -37,11 +37,11 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: llvm-cov
-          path: llvm-cov/html
+          path: rust-actix/target/llvm-cov/html
       - name: Code Coverage Summary Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: cobertura.xml
+          filename: rust-actix/cobertura.xml
           badge: true
           fail_below_min: true
           format: markdown
