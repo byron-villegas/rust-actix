@@ -1,0 +1,32 @@
+image: rust:1.81.0 # Imagen base
+
+stages: # Lista de etapas
+  - test
+  - build
+  - deploy
+
+unit-test:
+  stage: test
+  coverage: '/TOTAL +\d{1,2} +\d{1,2} +([0-9.]+)%/' # Obtiene el porcentaje de cobertura
+  script: # Ejecutar scripts, comandos, etc
+    - cargo build # Instala los package
+    - cargo install cargo-llvm-cov # Instalar libreria para cobertura
+    - cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" # Ejecutar tests con cobertura con reporte por consola
+    - cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --html # Ejecutar tests con cobertura con reporte html
+  artifacts: # Artefactos que deseamos generar para el trabajo
+    paths: # Rutas
+      - target/llvm-cov/html # Carpeta coverage que contiene el reporte de cobertura del codigo
+
+build:
+  stage: build
+  script: # Ejecutar scripts, comandos, etc
+    - cargo build # Instala los package
+
+render-deploy: # Nombre del trabajo
+  stage: deploy # Etapa a la cual pertenece
+  script:
+    - curl -X POST $RENDER_DEPLOY_HOOK > deploy.json # Despliegue en render
+    - sleep 240 # Se espera por 4 minutos
+  artifacts: # Artefactos que deseamos generar para el trabajo
+    paths: # Rutas
+      - deploy.json # Json del despliegue
