@@ -11,10 +11,8 @@ jobs:
       image: rust:1.81.0
     steps:
       - uses: actions/checkout@v4
-      - name: Change ownership of /github/home
-        run: chown -R $(whoami) /github/home
-      - name: Build
-        run: cargo build
+      - name: Build Release
+        run: cargo build --release
   unit-test:
     needs: [build]
     runs-on: ubuntu-latest
@@ -22,17 +20,15 @@ jobs:
       image: rust:1.81.0
     steps:
       - uses: actions/checkout@v4
-      - name: Change ownership of /github/home
-        run: chown -R $(whoami) /github/home
-      - name: Build
-        run: cargo build
-      - name: Install cargo llvm for coverage
+      - name: Build Release
+        run: cargo build --release
+      - name: Install Cargo llvm For Coverage
         run: cargo install cargo-llvm-cov
-      - name: Run tests with coverage with console report
+      - name: Run Tests With Coverage With Console Report
         run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs"
-      - name: Run tests with coverage with html report
+      - name: Run Tests With Coverage With HTML Report
         run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --html
-      - name: Run tests with coverage with xml report
+      - name: Run Tests With Coverage With XML Report
         run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --cobertura --output-path "cobertura.xml"
       - uses: actions/upload-artifact@v4
         with:
@@ -56,11 +52,11 @@ jobs:
     env:
       RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
     steps:
-      - name: Deploy by hook
+      - name: Deploy With Hook
         run: curl -X POST $RENDER_DEPLOY_HOOK > deploy.json
       - uses: actions/upload-artifact@v4
         with:
           name: deploy
           path: deploy.json
-      - name: Sleep by two minutes
+      - name: Sleep By Two Minutes
         run: sleep 120
