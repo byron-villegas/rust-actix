@@ -1,0 +1,66 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: rust:1.81.0
+    steps:
+      - uses: actions/checkout@v3
+      - name: Change ownership of /github/home
+        run: chown -R $(whoami) /github/home
+      - name: Build
+        run: cargo build
+  unit-test:
+    needs: [build]
+    runs-on: ubuntu-latest
+    container:
+      image: rust:1.81.0
+    steps:
+      - uses: actions/checkout@v3
+      - name: Change ownership of /github/home
+        run: chown -R $(whoami) /github/home
+      - name: Build
+        run: cargo build
+      - name: Install cargo llvm for coverage
+        run: cargo install cargo-llvm-cov
+      - name: Run tests with coverage with console report
+        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs"
+      - name: Run tests with coverage with html report
+        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --html
+      - name: Run tests with coverage with xml report
+        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --cobertura
+      - uses: actions/upload-artifact@v4
+        with:
+          name: llvm-cov
+          path: target/llvm-cov/html
+      - name: Code Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: target/cobertura.xml
+          badge: true
+          fail_below_min: true
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '80'
+  deploy:
+    needs: [build, unit-test]
+    runs-on: ubuntu-latest
+    env:
+      RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+    steps:
+      - name: Deploy by hook
+        run: curl -X POST $RENDER_DEPLOY_HOOK > deploy.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deploy
+          path: deploy.json
+      - name: Sleep by two minutes
+        run: sleep 120
