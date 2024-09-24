@@ -41,7 +41,7 @@ jobs:
       - name: Code Coverage Summary Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: rust-actix/cobertura.xml
+          filename: rust-actix/target/cobertura.xml
           badge: true
           fail_below_min: true
           format: markdown
