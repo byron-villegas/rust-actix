@@ -6,7 +6,7 @@ authors = ["Byron Villegas Moya"]
 keywords = ["rust", "actix", "rest", "api"]
 edition = "2021"
 rust-version = "1.81.0"
-repository = "https://gitlab.com/byron.villegas/rust-actix"
+repository = "https://github.com/byron-villegas/rust-actix"
 readme = "README.md"
 license-file = "LICENSE.txt"
 
