@@ -31,7 +31,7 @@ jobs:
       - name: Run Tests With Coverage With XML Report
         run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --cobertura --output-path "cobertura.xml"
       - name: show files
-        run: ls
+        run: ls target/
       - uses: actions/upload-artifact@v4
         with:
           name: llvm-cov
