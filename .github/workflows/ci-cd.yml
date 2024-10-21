@@ -14,7 +14,7 @@ jobs:
       - name: Build Release
         run: cargo build --release
   unit-test:
-    needs: [build]
+    needs: [ build ]
     runs-on: ubuntu-latest
     container:
       image: rust:1.81.0
@@ -47,7 +47,7 @@ jobs:
           output: both
           thresholds: '80'
   deploy:
-    needs: [build, unit-test]
+    needs: [ build, unit-test ]
     runs-on: ubuntu-latest
     env:
       RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
