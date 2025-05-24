@@ -29,7 +29,7 @@ impl Configuration {
 
         let mut host = "127.0.0.1".to_string();
 
-        if env::var_os("RUST_LOG").is_none() {
+        if env::var("RUST_LOG").is_err() {
             env::set_var("RUST_LOG", "actix_web=info");
         }
 
@@ -45,13 +45,13 @@ impl Configuration {
             }
         };
 
-        let log_level = env::var_os("RUST_LOG").unwrap();
+        let log_level = env::var("RUST_LOG").unwrap();
 
         let mut banner = fs::read_to_string("src/config/banner.txt").unwrap();
 
         banner = banner.replace("server.path", &configuration.server.path);
         banner = banner.replace("server.port", configuration.server.port.to_string().as_str());
-        banner = banner.replace("log.level", &log_level.to_str().unwrap().replace("actix_web=", ""));
+        banner = banner.replace("log.level", &log_level.to_string().replace("actix_web=", ""));
 
         println!("{banner}");
 

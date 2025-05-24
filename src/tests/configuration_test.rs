@@ -1,6 +1,5 @@
 #[cfg(test)]
 mod tests {
-    use std::env;
     use std::env::set_var;
 
     use actix_web::{test, web, App};
@@ -10,8 +9,6 @@ mod tests {
 
     #[actix_web::test]
     async fn test_config() {
-        env::remove_var("RUST_LOG");
-        
         let configuration = Configuration::init().await;
         let app = test::init_service(App::new().service(web::scope(&configuration.server.path)
         .configure(config))).await;
@@ -24,7 +21,7 @@ mod tests {
     #[actix_web::test]
     async fn test_config_with_log_env_set() {
         set_var("RUST_LOG", "actix_web=info");
-        env::set_var("HOST", "127.0.0.1");
+        set_var("HOST", "127.0.0.1");
         
         let configuration = Configuration::init().await;
         let app = test::init_service(App::new().service(web::scope(&configuration.server.path)

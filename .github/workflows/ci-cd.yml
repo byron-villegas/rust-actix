@@ -112,7 +112,7 @@ jobs:
           name: Cucumber Report JSON
           path: cucumber-report.json
   performance-test-goose:
-    needs: [ deploy ]
+    needs: [ acceptance-test ]
     runs-on: ubuntu-latest
     container:
       image: rust:1.87.0
