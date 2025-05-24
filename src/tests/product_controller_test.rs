@@ -35,7 +35,7 @@ mod tests {
 
     #[actix_web::test]
     async fn test_post_products_endpoint() {
-        let file = fs::read_to_string("src/data/productos.json").unwrap();
+        let file = fs::read_to_string("src/data/products.json").unwrap();
 
         let products: Vec<ProductDto> = serde_json::from_str(file.as_str()).unwrap();
 
