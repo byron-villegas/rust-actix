@@ -4,11 +4,13 @@ use std::fs;
 use actix_web::web;
 
 use crate::routes::health_route::health_checker_handler;
+use crate::routes::product_route::get_product_by_sku_handler;
 use crate::routes::product_route::{get_products_handler, post_products_handler};
 
 pub fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(health_checker_handler)
     .service(get_products_handler)
+    .service(get_product_by_sku_handler)
     .service(post_products_handler);
 }
 

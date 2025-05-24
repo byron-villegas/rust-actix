@@ -60,3 +60,35 @@ jobs:
           path: deploy.json
       - name: Sleep By Two Minutes
         run: sleep 120
+  acceptance-test:
+    needs: [ deploy ]
+    runs-on: ubuntu-latest
+    env:
+      API_HOST: "https://rust-actix-luup.onrender.com/api"
+    container:
+      image: rust:1.81.0
+    steps:
+      - name: Run Acceptance Tests
+        run: cargo run --bin cucumber
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Cucumber Report XML
+          path: cucumber-report.xml
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Cucumber Report JSON
+          path: cucumber-report.json
+  performance-test-goose:
+    needs: [ deploy ]
+    runs-on: ubuntu-latest
+    container:
+      image: rust:1.81.0
+    steps:
+      - name: Run Performance Tests With Goose
+        run: cargo run --bin goose -- --host https://rust-actix-luup.onrender.com/api/ --users 10 --run-time 10s --report-file=goose-report.html --no-reset-metrics
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Goose Report HTML
+          path: goose-report.html
+
+        

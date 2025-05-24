@@ -1,10 +1,15 @@
 use actix_web::{get, post, web, HttpResponse};
 
-use crate::{controllers::product_controller::{post_products, get_products_cr}, dtos::product_dto::ProductDto};
+use crate::{controllers::product_controller::{get_product_by_sku_cr, get_products_cr, post_products}, dtos::product_dto::ProductDto};
 
 #[get("/products")]
 async fn get_products_handler() -> HttpResponse  {
     return get_products_cr();
+}
+
+#[get("/products/{sku}")]
+async fn get_product_by_sku_handler(sku: web::Path<String>) -> HttpResponse  {
+    return get_product_by_sku_cr(sku.into_inner());
 }
 
 #[post("/products")]
