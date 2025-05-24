@@ -4,7 +4,7 @@ mod tests {
 
     use actix_web::{test, web, App};
 
-    use crate::{dtos::product_dto::ProductDto, routes::product_route::{get_products_handler, post_products_handler}};
+    use crate::{dtos::product_dto::ProductDto, routes::product_route::{get_product_by_sku_handler, get_products_handler, post_products_handler}};
 
     #[actix_web::test]
     async fn test_get_products_endpoint() {
@@ -13,6 +13,24 @@ mod tests {
         let resp = test::call_service(&app, req).await;
 
         assert!(resp.response().status().is_success());
+    }
+
+    #[actix_web::test]
+    async fn test_get_product_by_sku_endpoint() {
+        let app = test::init_service(App::new().service(web::scope("/api").service(get_product_by_sku_handler))).await;
+        let req = test::TestRequest::get().uri("/api/products/15207410").to_request();
+        let resp = test::call_service(&app, req).await;
+
+        assert!(resp.response().status().is_success());
+    }
+
+        #[actix_web::test]
+    async fn test_get_product_by_sku_endpoint_not_found() {
+        let app = test::init_service(App::new().service(web::scope("/api").service(get_product_by_sku_handler))).await;
+        let req = test::TestRequest::get().uri("/api/products/1").to_request();
+        let resp = test::call_service(&app, req).await;
+
+        assert!(resp.response().status().is_client_error());
     }
 
     #[actix_web::test]
