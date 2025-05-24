@@ -3,7 +3,7 @@ use std::fs;
 use crate::dtos::product_dto::ProductDto;
 
 pub fn get_products() -> Vec<ProductDto> {
-    let file = fs::read_to_string("src/data/productos.json").unwrap();
+    let file = fs::read_to_string("src/data/products.json").unwrap();
 
     let products: Vec<ProductDto> = serde_json::from_str(file.as_str()).unwrap();
 
@@ -25,5 +25,5 @@ pub fn add_product(product_dto: ProductDto) {
 
     let json = serde_json::to_string_pretty(&products).unwrap();
     
-    fs::write("src/data/productos.json", json).unwrap();
+    fs::write("src/data/products.json", json).unwrap();
 }
