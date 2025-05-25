@@ -3,15 +3,19 @@ mod tests {
     use std::env::set_var;
 
     use actix_web::{test, web, App};
+    use utoipa::OpenApi;
+    use utoipa_swagger_ui::SwaggerUi;
 
     use crate::config::config::Configuration;
     use crate::config::config::config;
+    use crate::doc::api_doc::ApiDoc;
 
     #[actix_web::test]
     async fn test_config() {
         let configuration = Configuration::init().await;
         let app = test::init_service(App::new().service(web::scope(&configuration.server.path)
-        .configure(config))).await;
+        .configure(config))
+        .service(SwaggerUi::new("/swagger-ui/{_:.*}").url("/api-doc/openapi.json", ApiDoc::openapi()))).await;
         let req = test::TestRequest::get().uri("/api/health").to_request();
         let resp = test::call_service(&app, req).await;
 
@@ -25,7 +29,8 @@ mod tests {
         
         let configuration = Configuration::init().await;
         let app = test::init_service(App::new().service(web::scope(&configuration.server.path)
-        .configure(config))).await;
+        .configure(config))
+        .service(SwaggerUi::new("/swagger-ui/{_:.*}").url("/api-doc/openapi.json", ApiDoc::openapi()))).await;
         let req = test::TestRequest::get().uri("/api/health").to_request();
         let resp = test::call_service(&app, req).await;
 

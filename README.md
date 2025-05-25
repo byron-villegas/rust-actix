@@ -62,7 +62,7 @@ cargo test
 Se debe ejecutar el siguiente comando
 
 ```shell
-cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|_steps.rs"
+cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|api_doc.rs|_steps.rs"
 ```
 **NOTA:** el parametro **--ignore-filename-regex** es para indicar que tipos de archivo omitir en este caso los dto y el main ya que no son necesario cubrirlos
 
@@ -70,7 +70,7 @@ cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|_steps.rs"
 Se debe ejecutar el siguiente comando
 
 ```shell
-cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs" --html
+cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|api_doc.rs|_steps.rs" --html
 ```
 **NOTA:** el parametro **--ignore-filename-regex** es para indicar que tipos de archivo omitir en este caso los dto y el main ya que no son necesario cubrirlos
 

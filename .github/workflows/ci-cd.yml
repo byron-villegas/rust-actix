@@ -45,15 +45,15 @@ jobs:
       - name: Install Cargo llvm For Coverage
         run: cargo install cargo-llvm-cov
       - name: Run Tests With Coverage With Console Report
-        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|_steps.rs"
+        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|api_doc.rs|_steps.rs"
       - name: Run Tests With Coverage With HTML Report
-        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|_steps.rs" --html
+        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|api_doc.rs|_steps.rs" --html
       - uses: actions/upload-artifact@v4
         with:
           name: llvm-cov
           path: target/llvm-cov/html
       - name: Run Tests With Coverage With XML Report
-        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|_steps.rs" --cobertura --output-path "cobertura.xml"
+        run: cargo llvm-cov --ignore-filename-regex "_dto.rs|main.rs|api_doc.rs|_steps.rs" --cobertura --output-path "cobertura.xml"
       - name: Code Coverage Summary Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
