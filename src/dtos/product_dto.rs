@@ -1,9 +1,10 @@
 use serde::{Deserialize, Serialize};
+use utoipa::ToSchema;
 
 use super::characteristic_dto::Characteristic;
 
 #[allow(non_snake_case)]
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, ToSchema)]
 pub struct ProductDto {
     pub id: i32,
     pub sku: i32,

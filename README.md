@@ -188,3 +188,5 @@ A continuación dejo links utilizados para realizar este proyecto
 [Cucumber](https://cucumber-rs.github.io/cucumber/current/introduction.html)
 
 [Goose](https://github.com/tag1consulting/goose)
+
+[Utoipa Swagger](https://crates.io/crates/utoipa-swagger-ui)
