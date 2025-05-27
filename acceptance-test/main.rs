@@ -14,7 +14,7 @@ pub struct World {
 impl Default for World {
     fn default() -> Self {
         Self {
-            host: std::env::var("API_HOST").unwrap_or_else(|_| "http://localhost:8000/api".to_string()),
+            host: env::var("API_HOST").unwrap_or_else(|_| "http://localhost:8000/api".to_string()),
             endpoint: String::new(),
             response: None,
         }

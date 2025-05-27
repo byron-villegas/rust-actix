@@ -27,15 +27,7 @@ pub struct Configuration {
 impl Configuration {
     pub async fn init() -> Self {
 
-        let mut host = "127.0.0.1".to_string();
-
-        if env::var("RUST_LOG").is_err() {
-            env::set_var("RUST_LOG", "actix_web=info");
-        }
-
-        if env::var("HOST").is_ok() {
-            host = env::var("HOST").unwrap();
-        }
+        let host = env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
 
         let configuration = Configuration {
             server: Server {
@@ -45,7 +37,7 @@ impl Configuration {
             }
         };
 
-        let log_level = env::var("RUST_LOG").unwrap();
+        let log_level = env::var("RUST_LOG").unwrap_or_else(|_| "actix_web=info".to_string());
 
         let mut banner = fs::read_to_string("src/config/banner.txt").unwrap();
 

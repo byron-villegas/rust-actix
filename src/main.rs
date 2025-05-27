@@ -20,6 +20,7 @@ use crate::doc::api_doc::ApiDoc;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv::dotenv().ok();
     
     let configuration = Configuration::init().await;
 
