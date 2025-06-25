@@ -27,19 +27,19 @@ pub struct Configuration {
 impl Configuration {
     pub async fn init() -> Self {
 
-        let host = env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
-
         let configuration = Configuration {
             server: Server {
-                host: host,
+                host: env::var("HOST").unwrap(),
                 path: "/api".to_string(),
-                port: 8000
+                port: env::var("PORT").unwrap().parse::<u16>().unwrap()
             }
         };
 
-        let log_level = env::var("RUST_LOG").unwrap_or_else(|_| "actix_web=info".to_string());
+        let log_level = env::var("RUST_LOG").unwrap();
 
-        let mut banner = fs::read_to_string("src/config/banner.txt").unwrap();
+        let mut banner = fs::read_to_string("src/config/banner.txt")
+        .or_else(|_| fs::read_to_string("config/banner.txt"))
+        .unwrap();
 
         banner = banner.replace("server.path", &configuration.server.path);
         banner = banner.replace("server.port", configuration.server.port.to_string().as_str());

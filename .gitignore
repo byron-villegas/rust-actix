@@ -7,3 +7,6 @@ cucumber-report.xml
 
 # Goose Report
 goose-report.html
+
+# Env File
+.env

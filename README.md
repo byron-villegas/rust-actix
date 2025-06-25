@@ -43,16 +43,34 @@ Este proyecto utiliza dotenv por lo que podemos crear el archivo **.env** con la
 
 ```text
 HOST=127.0.0.1
+PORT=8000
 RUST_LOG=actix_web=info
 ```
 
-Estas son las variables que se obtienen del entorno, la variable **HOST** se utiliza para indicarle el host de ejecución de la aplicacion, la variable **RUST_LOG** se utiliza para configurar el nivel de log de actix
+Estas son las variables que se obtienen del entorno, la variable **HOST** se utiliza para indicarle el host de ejecución de la aplicación, la variable **PORT** se utiliza para indicar el puerto de ejecución de la aplicación y la variable **RUST_LOG** se utiliza para configurar el nivel de log de actix
 
 ## Ejecutar Aplicación
 Se debe ejecutar el siguiente comando
 
 ```shell
 cargo run --bin main
+```
+
+### Docker
+A continuacion dejo los comandos a utilizar para generar la imagen y posteriormente ejecutarla
+
+#### Imagen
+Para generar la imagen debemos utilizar el siguiente comando
+
+```shell
+docker build -t rust-actix .
+```
+
+#### Ejecutar
+Para ejecutar la imagen debemos utilizar el siguiente comando
+
+```shell
+docker run -p 8000:8000 rust-actix
 ```
 
 ## Testing
