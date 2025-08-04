@@ -210,5 +210,98 @@
     ],
     "marca": "Apple",
     "precio": 2500000
+  },
+  {
+    "id": 1,
+    "sku": 15207410,
+    "imagen": "./assets/img/products/macbook-pro.webp",
+    "nombre": "MacBook Pro 13",
+    "descripcion": "MacBook Pro 13 1TB 16GB Ram",
+    "caracteristicas": [
+      {
+        "titulo": "Entradas HDMI",
+        "valor": "No incluye"
+      },
+      {
+        "titulo": "Hecho en",
+        "valor": "China"
+      },
+      {
+        "titulo": "Profundidad",
+        "valor": "21.24 cm"
+      },
+      {
+        "titulo": "Unidad óptica",
+        "valor": "No"
+      },
+      {
+        "titulo": "Entradas USB",
+        "valor": "2"
+      }
+    ],
+    "marca": "Apple",
+    "precio": 2500000
+  },
+  {
+    "id": 1,
+    "sku": 15207410,
+    "imagen": "./assets/img/products/macbook-pro.webp",
+    "nombre": "MacBook Pro 13",
+    "descripcion": "MacBook Pro 13 1TB 16GB Ram",
+    "caracteristicas": [
+      {
+        "titulo": "Entradas HDMI",
+        "valor": "No incluye"
+      },
+      {
+        "titulo": "Hecho en",
+        "valor": "China"
+      },
+      {
+        "titulo": "Profundidad",
+        "valor": "21.24 cm"
+      },
+      {
+        "titulo": "Unidad óptica",
+        "valor": "No"
+      },
+      {
+        "titulo": "Entradas USB",
+        "valor": "2"
+      }
+    ],
+    "marca": "Apple",
+    "precio": 2500000
+  },
+  {
+    "id": 1,
+    "sku": 15207410,
+    "imagen": "./assets/img/products/macbook-pro.webp",
+    "nombre": "MacBook Pro 13",
+    "descripcion": "MacBook Pro 13 1TB 16GB Ram",
+    "caracteristicas": [
+      {
+        "titulo": "Entradas HDMI",
+        "valor": "No incluye"
+      },
+      {
+        "titulo": "Hecho en",
+        "valor": "China"
+      },
+      {
+        "titulo": "Profundidad",
+        "valor": "21.24 cm"
+      },
+      {
+        "titulo": "Unidad óptica",
+        "valor": "No"
+      },
+      {
+        "titulo": "Entradas USB",
+        "valor": "2"
+      }
+    ],
+    "marca": "Apple",
+    "precio": 2500000
   }
 ]

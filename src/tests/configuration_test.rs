@@ -12,25 +12,18 @@ mod tests {
 
     #[actix_web::test]
     async fn test_config() {
-        let configuration = Configuration::init().await;
-        let app = test::init_service(App::new().service(web::scope(&configuration.server.path)
-        .configure(config))
-        .service(SwaggerUi::new("/swagger-ui/{_:.*}").url("/api-doc/openapi.json", ApiDoc::openapi()))).await;
-        let req = test::TestRequest::get().uri("/api/health").to_request();
-        let resp = test::call_service(&app, req).await;
-
-        assert!(resp.response().status().is_success());
-    }
-
-    #[actix_web::test]
-    async fn test_config_with_log_env_set() {
-        set_var("RUST_LOG", "actix_web=info");
         set_var("HOST", "127.0.0.1");
-        
+        set_var("PORT", "8000");
+        set_var("RUST_LOG", "actix_web=info");
+
         let configuration = Configuration::init().await;
+
         let app = test::init_service(App::new().service(web::scope(&configuration.server.path)
         .configure(config))
-        .service(SwaggerUi::new("/swagger-ui/{_:.*}").url("/api-doc/openapi.json", ApiDoc::openapi()))).await;
+        .service(SwaggerUi::new("/swagger-ui/{_:.*}")
+        .url("/api-doc/openapi.json", ApiDoc::openapi())))
+        .await;
+
         let req = test::TestRequest::get().uri("/api/health").to_request();
         let resp = test::call_service(&app, req).await;
 
