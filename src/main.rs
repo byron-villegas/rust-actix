@@ -5,6 +5,7 @@ mod dtos;
 mod routes;
 mod services;
 mod doc;
+mod repositories;
 
 #[cfg(test)]
 mod tests;
