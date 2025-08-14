@@ -24,7 +24,8 @@ use utoipa::OpenApi;
         crate::routes::health_route::health_checker_handler,
         crate::routes::product_route::get_products_handler,
         crate::routes::product_route::get_product_by_sku_handler,
-        crate::routes::product_route::post_products_handler
+        crate::routes::product_route::post_products_handler,
+        crate::routes::pokemon_route::get_pokedex_handler
     ),
     components(
         schemas(

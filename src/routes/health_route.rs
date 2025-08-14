@@ -1,4 +1,4 @@
-use actix_web::{get, HttpResponse};
+use actix_web::{get, web, HttpResponse};
 
 use crate::{controllers::health_controller::get_health_check_info};
 
@@ -13,7 +13,14 @@ use crate::{controllers::health_controller::get_health_check_info};
         (status = 200, description = "Health check successful", body = crate::dtos::health_response_dto::HealthResponseDto)
     )
 )]
-#[get("/health")]
+#[get("")]
 async fn health_checker_handler() -> HttpResponse  {
     return get_health_check_info();
+}
+
+pub fn config(cfg: &mut web::ServiceConfig) {
+    cfg
+        .service(web::scope("/health")
+            .service(health_checker_handler)
+        );
 }

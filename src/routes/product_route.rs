@@ -13,7 +13,7 @@ use crate::{controllers::product_controller::{get_product_by_sku_cr, get_product
         (status = 200, description = "return product successfully", body = [ProductDto])
     )
 )]
-#[get("/products")]
+#[get("")]
 async fn get_products_handler() -> HttpResponse  {
     return get_products_cr();
 }
@@ -32,7 +32,7 @@ async fn get_products_handler() -> HttpResponse  {
         (status = 200, description = "Product retrived", body = ProductDto)
     )
 )]
-#[get("/products/{sku}")]
+#[get("/{sku}")]
 async fn get_product_by_sku_handler(sku: web::Path<String>) -> HttpResponse  {
     return get_product_by_sku_cr(sku.into_inner());
 }
@@ -52,7 +52,16 @@ async fn get_product_by_sku_handler(sku: web::Path<String>) -> HttpResponse  {
         (status = 201, description = "Product created")
     )
 )]
-#[post("/products")]
+#[post("")]
 async fn post_products_handler(product_dto: web::Json<ProductDto>) -> HttpResponse  {
     return post_products(product_dto);
+}
+
+pub fn config(cfg: &mut web::ServiceConfig) {
+    cfg
+        .service(web::scope("/products")
+            .service(get_products_handler)
+            .service(get_product_by_sku_handler)
+            .service(post_products_handler)
+        );
 }
