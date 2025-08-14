@@ -8,7 +8,11 @@ mod tests {
 
     #[actix_web::test]
     async fn test_get_products_endpoint() {
-        let app = test::init_service(App::new().service(web::scope("/api").service(get_products_handler))).await;
+        let app = test::init_service(App::new()
+            .service(web::scope("/api")
+                .service(web::scope("/products")
+                    .service(get_products_handler))))
+            .await;
         let req = test::TestRequest::get().uri("/api/products").to_request();
         let resp = test::call_service(&app, req).await;
 
@@ -17,7 +21,11 @@ mod tests {
 
     #[actix_web::test]
     async fn test_get_product_by_sku_endpoint() {
-        let app = test::init_service(App::new().service(web::scope("/api").service(get_product_by_sku_handler))).await;
+        let app = test::init_service(App::new()
+            .service(web::scope("/api")
+                .service(web::scope("/products")
+                    .service(get_product_by_sku_handler))))
+            .await;
         let req = test::TestRequest::get().uri("/api/products/15207410").to_request();
         let resp = test::call_service(&app, req).await;
 
@@ -26,7 +34,11 @@ mod tests {
 
         #[actix_web::test]
     async fn test_get_product_by_sku_endpoint_not_found() {
-        let app = test::init_service(App::new().service(web::scope("/api").service(get_product_by_sku_handler))).await;
+        let app = test::init_service(App::new()
+            .service(web::scope("/api")
+                .service(web::scope("/products")
+                    .service(get_product_by_sku_handler))))
+            .await;
         let req = test::TestRequest::get().uri("/api/products/1").to_request();
         let resp = test::call_service(&app, req).await;
 
@@ -41,7 +53,11 @@ mod tests {
 
         let product = &products[0];
 
-        let app = test::init_service(App::new().service(web::scope("/api").service(post_products_handler))).await;
+        let app = test::init_service(App::new()
+            .service(web::scope("/api")
+                .service(web::scope("/products")
+                    .service(post_products_handler))))
+            .await;
         let req = test::TestRequest::post().uri("/api/products").set_json(product).to_request();
         let resp = test::call_service(&app, req).await;
 
