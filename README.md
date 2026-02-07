@@ -2,7 +2,7 @@
 
 Proyecto base para aplicaciones Actix con ejemplos de configuración, testing y buenas prácticas.
 
-## Tabla de Contenidos
+## Tabla de Contenido
 
 - [Instalación](#instalación)
 - [Variables de Entorno](#variables-de-entorno)
